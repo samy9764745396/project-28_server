@@ -7,9 +7,11 @@ const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 const secret = "FORM"
 const Blogs = require("./blogs")
+const cors = require("cors")
 // const router = express.Router();
 
 const app = express()
+
 app.use(cors({
     origin: "*"
 }))
@@ -28,7 +30,6 @@ mongoose.connect(
       console.log(err);
     }
   );
-
 
 app.post("/signup", body("email").isEmail(), body("password").isLength({ min: 5, max: 15 }),
     async (req, res) => {
