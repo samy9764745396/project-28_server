@@ -15,9 +15,17 @@ const app = express()
 app.use("/api/Blogs",Blogs)
 app.use(bodyParser.json())
 
-mongoose.connect('mongodb://localhost:27017/my_dataBase')  // my_dataBase
-    .then(console.log("connected to db"))
-    .catch(console.error);
+
+mongoose.connect(
+    "mongodb+srv://lalatendu_14:Liku2324@cluster0.cb2danw.mongodb.net/realestateproject?retryWrites=true&w=majority",
+    { useNewUrlParser: true, useUnifiedTopology: true },
+    () => {
+      console.log("successfully connected to db");
+    },
+    (err) => {
+      console.log(err);
+    }
+  );
 
 
 app.post("/signup", body("email").isEmail(), body("password").isLength({ min: 5, max: 15 }),
@@ -30,6 +38,7 @@ app.post("/signup", body("email").isEmail(), body("password").isLength({ min: 5,
             }
 
             const { email, password } = req.body
+            console.log(req.body)
             let user = await User.findOne({ email })
 
             if (user) {
@@ -55,7 +64,7 @@ app.post("/signup", body("email").isEmail(), body("password").isLength({ min: 5,
                     res.json({
                         status: "Success",
                         message: "Regestration Successfull"
-                    }))
+                   }))
             });
 
         }
@@ -128,3 +137,7 @@ app.post("/login", body("email").isEmail(),
 // })
 
 app.listen(5000, console.log("server running at port 5000"))
+
+
+
+//mongodb+srv://sameer:123456@1@cluster0.2iahwin.mongodb.net/userdata?retryWrites=true&w=majority
