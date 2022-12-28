@@ -96,6 +96,7 @@ app.post("/login", body("email").isEmail(),
             }))
         }
 
+        
         bcrypt.compare(password, user.password, function (err, result) {
 
             if (err) {
