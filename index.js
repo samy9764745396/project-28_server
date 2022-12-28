@@ -10,7 +10,9 @@ const Blogs = require("./blogs")
 // const router = express.Router();
 
 const app = express()
-
+app.use(cors({
+    origin: "*"
+}))
 
 app.use("/api/Blogs",Blogs)
 app.use(bodyParser.json())
@@ -96,7 +98,7 @@ app.post("/login", body("email").isEmail(),
             }))
         }
 
-        
+
         bcrypt.compare(password, user.password, function (err, result) {
 
             if (err) {
